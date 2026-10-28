@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import { useFetch } from '../hooks/useFetch';
+import { useRenderLog } from '../hooks/useRenderLog';
+import { CharacterCard } from './CharacterCard';
 
 const API_BASE = 'https://rickandmortyapi.com/api/character';
 
 export function SearchBoard() {
+  useRenderLog('SearchBoard');
   const [query, setQuery] = useState('');
   const [searchUrl, setSearchUrl] = useState(null);
 
@@ -107,37 +110,7 @@ export function SearchBoard() {
                 }}
               >
                 {data.results?.map((character) => (
-                  <div
-                    key={character.id}
-                    style={{
-                      border: '1px solid #ddd',
-                      borderRadius: '8px',
-                      overflow: 'hidden',
-                      background: 'white',
-                      boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-                    }}
-                  >
-                    <img
-                      src={character.image}
-                      alt={character.name}
-                      style={{ width: '100%', height: '200px', objectFit: 'cover' }}
-                    />
-                    <div style={{ padding: '1rem' }}>
-                      <h3 style={{ margin: '0 0 0.5rem 0' }}>{character.name}</h3>
-                      <p style={{ margin: '0.25rem 0', color: '#666' }}>
-                        <strong>Estado:</strong> {character.status}
-                      </p>
-                      <p style={{ margin: '0.25rem 0', color: '#666' }}>
-                        <strong>Especie:</strong> {character.species}
-                      </p>
-                      <p style={{ margin: '0.25rem 0', color: '#666' }}>
-                        <strong>Género:</strong> {character.gender}
-                      </p>
-                      <p style={{ margin: '0.25rem 0', color: '#666', fontSize: '0.85rem' }}>
-                        <strong>Origen:</strong> {character.origin?.name}
-                      </p>
-                    </div>
-                  </div>
+                  <CharacterCard key={character.id} character={character} />
                 ))}
               </div>
             )}
